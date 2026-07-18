@@ -1,4 +1,5 @@
 from backend.app.memory.conversation import conversation_manager
+from backend.app.services.llm import llm_service
 
 
 def process_message(message: str):
@@ -8,7 +9,10 @@ def process_message(message: str):
         message
     )
 
-    reply = f"You said: {message}"
+    reply = llm_service.generate_response(
+        message=message,
+        history=conversation_manager.get_history()
+    )
 
     conversation_manager.add_message(
         "assistant",
