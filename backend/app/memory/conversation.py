@@ -15,9 +15,8 @@ class ConversationManager:
 
         self.history.append(message)
 
-    def get_history(self):
-
-        return self.history
+    def get_history(self) -> list[Message]:
+        return self.history.copy()
 
     def clear_history(self):
 
