@@ -1,4 +1,4 @@
-from app.memory.conversation import conversation_manager
+from backend.app.memory.conversation import conversation_manager
 
 
 def process_message(message: str):

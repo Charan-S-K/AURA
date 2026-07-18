@@ -1,8 +1,8 @@
 from fastapi import APIRouter
 
-from app.models.chat import ChatRequest
-from app.services.assistant import process_message
-from app.config.settings import (
+from backend.app.models.chat import ChatRequest
+from backend.app.services.assistant import process_message
+from backend.app.config.settings import (
     APP_NAME,
     APP_VERSION,
     ASSISTANT_NAME,

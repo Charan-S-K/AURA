@@ -1,7 +1,8 @@
 from fastapi import FastAPI
+from backend.app.database import database
 
-from app.api.routes import router
-from app.config.settings import APP_NAME, APP_VERSION
+from backend.app.api.routes import router
+from backend.app.config.settings import APP_NAME, APP_VERSION
 
 app = FastAPI(
     title=APP_NAME,

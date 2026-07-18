@@ -1,4 +1,4 @@
-from app.models.message import Message
+from backend.app.models.message import Message
 
 
 class ConversationManager:
