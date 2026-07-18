@@ -1,23 +1,12 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
 
-app = FastAPI(title="AURA API",
-    version="0.1.0")
+from app.api.routes import router
+from app.config.settings import APP_NAME, APP_VERSION
 
-class ChatRequest(BaseModel):
-    message: str
+app = FastAPI(
+    title=APP_NAME,
+    version=APP_VERSION,
+    description="Artificial Universal Responsive Assistant",
+)
 
-
-@app.get("/")
-def home():
-    return {
-        "assistant": "AURA",
-        "status": "Running"
-    }
-
-@app.post("/chat")
-def chat(request: ChatRequest):
-    return {
-        "user_message": request.message,
-        "assistant_reply": f"You said: {request.message}"
-    }
+app.include_router(router)
