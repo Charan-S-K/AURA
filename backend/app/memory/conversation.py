@@ -1,5 +1,5 @@
 from backend.app.models.message import Message
-
+from backend.app.services.database_service import database_service
 
 class ConversationManager:
 
@@ -14,6 +14,11 @@ class ConversationManager:
         )
 
         self.history.append(message)
+
+        database_service.save_message(
+            role,
+            content
+        )
 
     def get_history(self) -> list[Message]:
         return self.history.copy()
