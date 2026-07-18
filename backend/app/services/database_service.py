@@ -25,5 +25,21 @@ class DatabaseService:
 
             db.close()
 
+    def load_messages(self):
+
+        db: Session = SessionLocal()
+
+        try:
+
+            messages = db.query(MessageTable).order_by(
+                MessageTable.id
+            ).all()
+
+            return messages
+
+        finally:
+
+            db.close()
+
 
 database_service = DatabaseService()

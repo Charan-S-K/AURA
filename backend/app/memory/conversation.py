@@ -5,6 +5,22 @@ class ConversationManager:
 
     def __init__(self):
         self.history: list[Message] = []
+        self.load_previous_messages()
+
+    def load_previous_messages(self):
+
+        self.history.clear()
+
+        messages = database_service.load_messages()
+
+        for message in messages:
+
+            self.history.append(
+                Message(
+                    role=message.role,
+                    content=message.content
+                )
+            )
 
     def add_message(self, role: str, content: str):
 
@@ -26,6 +42,8 @@ class ConversationManager:
     def clear_history(self):
 
         self.history.clear()
+
+    
 
 
 conversation_manager = ConversationManager()
