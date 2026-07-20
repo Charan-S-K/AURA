@@ -1,5 +1,6 @@
 from backend.app.models.message import Message
 from backend.app.services.database_service import database_service
+from backend.app.config.settings import MAX_CONTEXT_MESSAGES
 
 class ConversationManager:
 
@@ -21,6 +22,13 @@ class ConversationManager:
                     content=message.content
                 )
             )
+
+    def get_recent_history(
+        self,
+        limit: int = MAX_CONTEXT_MESSAGES,
+    ) -> list[Message]:
+
+        return self.history[-limit:]
 
     def add_message(self, role: str, content: str):
 

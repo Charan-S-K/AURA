@@ -1,5 +1,5 @@
 from backend.app.memory.conversation import conversation_manager
-from backend.app.services.llm import llm_service
+from backend.app.services.llm.llm import llm_service
 
 
 def process_message(message: str):
@@ -11,7 +11,7 @@ def process_message(message: str):
 
     reply = llm_service.generate_response(
         message=message,
-        history=conversation_manager.get_history()
+        history=conversation_manager.get_recent_history()
     )
 
     conversation_manager.add_message(
