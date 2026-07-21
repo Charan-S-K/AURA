@@ -7,6 +7,7 @@ from .gemini_provider import GeminiProvider
 class LLMService:
 
     def __init__(self):
+        print("Current Provider:", LLM_PROVIDER)
 
         if LLM_PROVIDER == "gemini":
 

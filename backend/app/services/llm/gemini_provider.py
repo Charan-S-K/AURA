@@ -24,7 +24,7 @@ class GeminiProvider(LLMProvider):
         message: str,
         history: list[Message],
     ) -> str:
-
+        print("===== GEMINI PROVIDER =====")
         prompt = SYSTEM_PROMPT + "\n\n"
 
         for item in history:
