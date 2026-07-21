@@ -1,27 +1,61 @@
-from backend.app.memory.conversation import conversation_manager
+from backend.app.memory.extractor import memory_extractor
+from backend.app.repositories.memory_repository import memory_repository
 
 
 class MemoryService:
 
-    def store(self, message: str) -> str:
-        """
-        Placeholder implementation.
+    def store(
+        self,
+        message: str,
+    ) -> str:
 
-        Stage 5.5 stores important information
-        using the existing conversation manager.
-        """
+        result = memory_extractor.extract_store(message)
 
-        return "I will remember that."
+        if result is None:
 
-    def recall(self, message: str) -> str:
-        """
-        Placeholder implementation.
+            return "I couldn't understand what to remember."
 
-        The real implementation will search
-        long-term memory in the next step.
-        """
+        key, value = result
 
-        return "I don't remember that yet."
+        memory_repository.save(
+            key,
+            value,
+        )
+
+        return (
+            f"I'll remember your "
+            f"{key.replace('_', ' ')} is "
+            f"{value}."
+        )
+
+    def recall(
+        self,
+        message: str,
+    ) -> str:
+
+        key = memory_extractor.extract_recall(message)
+
+        if key is None:
+
+            return (
+                "I couldn't understand "
+                "what you wanted to recall."
+            )
+
+        value = memory_repository.get(key)
+
+        if value is None:
+
+            return (
+                f"I don't know your "
+                f"{key.replace('_', ' ')} yet."
+            )
+
+        return (
+            f"Your "
+            f"{key.replace('_', ' ')} "
+            f"is {value}."
+        )
 
 
 memory_service = MemoryService()
