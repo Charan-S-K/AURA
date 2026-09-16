@@ -7,32 +7,41 @@ class IntentDetector:
 
         text = message.strip().lower()
 
+        # --------------------------------------------------
+        # MEMORY STORE
+        # --------------------------------------------------
+
         memory_store_patterns = [
 
             "remember",
 
             "my name is",
-            "i am ",
-            "i'm ",
+            "my nickname is",
 
             "my college is",
             "i study at",
             "i'm studying at",
 
+            "my university is",
+
             "i work at",
             "i work for",
-
-            "my university is",
 
             "i live in",
             "i'm from",
             "my hometown is",
             "my city is",
 
+            "my birthday is",
+
             "my favourite language is",
             "my favorite language is",
 
-            "my birthday is",
+            "my favourite food is",
+            "my favorite food is",
+
+            "my favourite color is",
+            "my favorite color is",
 
             "i am an",
             "i'm an",
@@ -41,30 +50,51 @@ class IntentDetector:
             "i'm a",
         ]
 
-        if any(pattern in text for pattern in memory_store_patterns):
+        if any(
+            pattern in text
+            for pattern in memory_store_patterns
+        ):
             return Intent.MEMORY_STORE
+
+        # --------------------------------------------------
+        # MEMORY RECALL
+        # --------------------------------------------------
 
         memory_recall_patterns = [
 
             "what is my",
             "what's my",
 
+            "tell me my",
+
             "who am i",
 
             "where do i study",
             "where do i work",
-
             "where do i live",
 
-            "what is my birthday",
-            "when is my birthday",
+            "what color do i like",
+            "what colour do i like",
 
+            "what food do i like",
+
+            "what language do i like",
+
+            "when is my birthday",
         ]
 
-        if any(pattern in text for pattern in memory_recall_patterns):
+        if any(
+            pattern in text
+            for pattern in memory_recall_patterns
+        ):
             return Intent.MEMORY_RECALL
 
+        # --------------------------------------------------
+        # SCHEDULER
+        # --------------------------------------------------
+
         scheduler_keywords = [
+
             "alarm",
             "remind",
             "schedule",
@@ -75,8 +105,15 @@ class IntentDetector:
             "today",
         ]
 
-        if any(keyword in text for keyword in scheduler_keywords):
+        if any(
+            keyword in text
+            for keyword in scheduler_keywords
+        ):
             return Intent.SCHEDULER
+
+        # --------------------------------------------------
+        # DEFAULT CHAT
+        # --------------------------------------------------
 
         return Intent.CHAT
 

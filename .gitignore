@@ -33,3 +33,37 @@ htmlcov/
 build/
 dist/
 *.egg-info/
+# Environment
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+
+# Build / cache
+.pytest_cache/
+.mypy_cache/
+.coverage
+
+# Logs
+*.log

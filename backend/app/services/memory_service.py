@@ -1,5 +1,6 @@
-from backend.app.memory.extractor import memory_extractor
-from backend.app.repositories.memory_repository import memory_repository
+from backend.app.memory.manager import (
+    memory_manager,
+)
 
 
 class MemoryService:
@@ -9,52 +10,26 @@ class MemoryService:
         message: str,
     ) -> str:
 
-        result = memory_extractor.extract_store(message)
+        result = memory_manager.store(
+            message
+        )
 
         if result is None:
 
-            return "I couldn't understand what to remember."
+            return (
+                "I couldn't identify any "
+                "personal information to remember."
+            )
 
-        key, value = result
-
-        memory_repository.save(
-            key,
-            value,
-        )
-
-        return (
-            f"I'll remember your "
-            f"{key.replace('_', ' ')} is "
-            f"{value}."
-        )
+        return result
 
     def recall(
         self,
         message: str,
     ) -> str:
 
-        key = memory_extractor.extract_recall(message)
-
-        if key is None:
-
-            return (
-                "I couldn't understand "
-                "what you wanted to recall."
-            )
-
-        value = memory_repository.get(key)
-
-        if value is None:
-
-            return (
-                f"I don't know your "
-                f"{key.replace('_', ' ')} yet."
-            )
-
-        return (
-            f"Your "
-            f"{key.replace('_', ' ')} "
-            f"is {value}."
+        return memory_manager.recall(
+            message
         )
 
 

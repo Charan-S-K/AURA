@@ -6,7 +6,7 @@ from backend.app.config.settings import (
 )
 
 from backend.app.models.message import Message
-from backend.app.prompts.system_prompt import SYSTEM_PROMPT
+from backend.app.services.llm.prompt_builder import prompt_builder
 
 from .provider import LLMProvider
 
@@ -24,13 +24,13 @@ class GeminiProvider(LLMProvider):
         message: str,
         history: list[Message],
     ) -> str:
+
         print("===== GEMINI PROVIDER =====")
-        prompt = SYSTEM_PROMPT + "\n\n"
 
-        for item in history:
-            prompt += f"{item.role}: {item.content}\n"
-
-        prompt += f"user: {message}\nassistant:"
+        prompt = prompt_builder.build(
+            history=history,
+            message=message,
+        )
 
         try:
 
@@ -45,4 +45,6 @@ class GeminiProvider(LLMProvider):
 
             print(f"Gemini Error: {e}")
 
-            return "Sorry, I couldn't connect to Gemini."
+            return (
+                "Sorry, I couldn't connect to Gemini."
+            )

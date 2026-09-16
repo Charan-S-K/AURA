@@ -3,7 +3,7 @@ from backend.app.brain.intent import Intent
 
 from backend.app.memory.conversation import conversation_manager
 from backend.app.services.llm.llm import llm_service
-from backend.app.services.memory_service import memory_service
+from backend.app.memory.manager import memory_manager
 
 
 def process_message(message: str):
@@ -24,11 +24,18 @@ def process_message(message: str):
 
     elif intent == Intent.MEMORY_STORE:
 
-        reply = memory_service.store(message)
+        reply = memory_manager.store(message)
+
+        if reply is None:
+
+            reply = llm_service.generate_response(
+                message=message,
+                history=conversation_manager.get_recent_history(),
+            )
 
     elif intent == Intent.MEMORY_RECALL:
 
-        reply = memory_service.recall(message)
+        reply = memory_manager.recall(message)
 
     elif intent == Intent.SCHEDULER:
 
